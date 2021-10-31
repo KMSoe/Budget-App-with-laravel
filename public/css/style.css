@@ -1,0 +1,762 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --mainColor: #1a252f;
+    --plusColor: #08fa08;
+    --minusColor: #fa0808;
+    --hoverColor: #333;
+}
+body {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-color: var(--mainColor);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #fff;
+}
+a {
+    color: #fff;
+    -webkit-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+p {
+    color: #b3b3b3;
+    font-weight: 300;
+}
+a,
+a:hover {
+    text-decoration: none !important;
+}
+/* Utilities */
+.plus {
+    color: var(--plusColor);
+}
+.bg-plus {
+    background-color: var(--plusColor);
+}
+.minus {
+    color: var(--minusColor);
+}
+.bg-minus {
+    background-color: var(--minusColor);
+}
+.bg-main {
+    background-color: var(--mainColor);
+}
+.img-thumbnail {
+    border: 1px solid #1da1f2 !important;
+}
+.justify-content-space-between {
+    justify-content: space-between;
+}
+.select-btn {
+    border-radius: 15px;
+}
+.select-btn .fa-calendar-alt {
+    font-size: 18px;
+}
+.bg-active {
+    background-color: #1da1f2;
+}
+.text-active {
+    color: #1da1f2;
+}
+.pointer {
+    cursor: pointer;
+}
+.hover:hover {
+    background-color: var(--hoverColor);
+}
+.alert {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    width: 400px;
+    text-align: center;
+    padding: 15px 5px;
+    z-index: 10000;
+    border: 0;
+}
+@media screen and (max-width: 420px) {
+    .alert {
+        width: 95%;
+    }
+}
+.alert-success {
+    background-color: var(--plusColor);
+}
+.alert-danger {
+    background-color: var(--minusColor);
+}
+.alert-warning {
+    background-color: #ebc90a;
+}
+.back-to-top {
+    display: none;
+    background-color: #eee;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 10000000;
+}
+.back-to-top .up-arrow {
+    display: block;
+    width: 50%;
+    height: 50%;
+    margin-top: 30%;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(-45deg);
+}
+#pie-small {
+    width: 75%;
+    height: auto;
+}
+.mobile-sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+@media screen and (min-width: 992px) {
+    .mobile-sticky-nav {
+        position: relative;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    #pie-small {
+        width: 60%;
+        height: auto;
+    }
+}
+.fa-facebook,
+.fa-facebook-messenger {
+    color: #4267b2;
+}
+.fa-instagram-square {
+    color: #8a3ab9;
+    font-size: 48px;
+}
+.fa-twitter-square {
+    color: #1da1f2;
+}
+i.noti {
+    font-size: 22px;
+    margin-top: 5px;
+}
+.breadcrumb {
+    background-color: #3f3f3f;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #eee;
+    font-weight: bold;
+}
+.breadcrumb-item a {
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #1da1f2 !important;
+}
+.breadcrumb-item.active a {
+    color: #fff !important;
+}
+.hover-customise:hover {
+    background-color: #3f3f3f !important;
+    color: #fff !important;
+}
+.swip-nav a {
+    background-color: #3f3f3f;
+    font-size: 16px;
+}
+.swip-nav a i {
+    display: none;
+    transition: display 0.3s ease-in;
+}
+.swip-nav a.active i {
+    display: inline;
+}
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.username {
+    border-radius: 15px;
+}
+.username:hover {
+    background-color: #3f3f3f;
+}
+.add-categories-section .fa-file-invoice-dollar {
+    /* color: #e41809; */
+    background-color: white;
+    font-size: 32px;
+}
+.income-categories-container,
+.expenses-categories-container {
+    display: none;
+}
+.income-categories-container.show,
+.expenses-categories-container.show {
+    display: block;
+}
+
+/* Add Income, Expense Item Button Style Start*/
+.add-button {
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background-color: #1da1f2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.add-button i {
+    color: white;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media screen and (min-width: 768px) {
+    .add-button {
+        width: 50px;
+        height: 50px;
+    }
+    .add-button i {
+        font-size: 28px;
+    }
+}
+/* Add Income, Expense Item Button Style End*/
+
+/* Form Element Style Start*/
+input[type="text"],
+input[type="password"] {
+    letter-spacing: 2px;
+}
+label {
+    color: #fff;
+}
+textarea {
+    color: #fff;
+    background-color: var(--mainColor);
+    border: 1px solid #1da1f2;
+    padding: 3px 5px;
+}
+select.form-select {
+    width: unset;
+    background-color: var(--mainColor);
+    color: #fff;
+}
+input.form-control {
+    background-color: var(--mainColor) !important;
+    color: #fff !important;
+}
+input.form-control::placeholder,
+form small {
+    color: #ababab;
+}
+.input-field-symbol {
+    top: 28%;
+    right: 15px;
+    color: #fff;
+    font-size: 20px;
+}
+/* Form Element Style End*/
+
+footer {
+    background-color: #161b20;
+}
+/* Overlay */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.2;
+    display: none;
+}
+
+/* Modal Customise Style Start */
+.modal.show .modal-dialog {
+    top: 35%;
+    transform: translateY(-50%);
+}
+.modal.show .modal-dialog .modal-content {
+    background-color: var(--mainColor);
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+}
+.modal.show .modal-dialog .modal-title {
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+}
+.modal.show#share .modal-dialog .modal-body,
+.modal.show#choose .modal-dialog .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.modal.show#share .modal-dialog .modal-body a,
+.modal.show#choose .modal-dialog .modal-body a {
+    padding: 10px 15px;
+    text-decoration: none;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.modal.show#share .modal-dialog .modal-body a {
+    flex: 1;
+}
+.modal.show#choose .modal-dialog .modal-body a {
+    flex-basis: 40%;
+}
+/* .modal.show#choose .modal-dialog .modal-body a i.income,
+.income-title-icon {
+    color: var(--plusColor);
+}
+.modal.show#choose .modal-dialog .modal-body a i.expense,
+.expense-title-icon {
+    color: var(--minusColor);
+} */
+.modal.show#share .modal-dialog .modal-body a i,
+.modal.show#choose .modal-dialog .modal-body a i {
+    font-size: 48px;
+    margin-bottom: 5px;
+}
+.modal.show .modal-dialog .modal-body a p {
+    color: #fff;
+}
+.modal.show#rate .modal-dialog .modal-footer {
+    border-top: 0;
+}
+.modal.show#rate .rating i.fa {
+    color: #1da1f2;
+}
+/* Modal Customise Style End */
+
+/* Sidebar Style Start */
+/* aside {
+      overflow: hidden;
+      height: 100vh;
+      min-height: 580px;
+    } */
+
+/* sidebar */
+.sidebar,
+.main-sidebar {
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    background-color: var(--mainColor);
+    -webkit-transition: 1s -webkit-transform cubic-bezier(0.23, 1, 0.32, 1);
+    transition: 1s -webkit-transform cubic-bezier(0.23, 1, 0.32, 1);
+    -o-transition: 1s transform cubic-bezier(0.23, 1, 0.32, 1);
+    transition: 1s transform cubic-bezier(0.23, 1, 0.32, 1);
+    transition: 1s transform cubic-bezier(0.23, 1, 0.32, 1),
+        1s -webkit-transform cubic-bezier(0.23, 1, 0.32, 1);
+}
+.sidebar {
+    position: fixed;
+    width: 300px;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+.main-sidebar {
+    /* position: absolute;
+        top: 70px;
+        width: 100%; */
+    border-right: 1px solid #3f3f3f;
+}
+.sidebar.show {
+    -webkit-box-shadow: 10px 0 30px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 10px 0 30px 0 rgba(0, 0, 0, 0.1);
+}
+.sidebar.show .close-sidebar-btn {
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+.sidebar.show .close-sidebar-btn i {
+    font-size: 30px;
+    color: #1da1f2;
+}
+.sidebar.show {
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    transform: translateX(0%);
+}
+aside .side-inner {
+    padding: 30px 0;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+@media screen and (min-width: 992px) {
+    aside .side-inner {
+        overflow-y: unset;
+    }
+}
+aside .side-inner .profile {
+    margin-bottom: 10px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-flow: column;
+}
+aside .side-inner .profile .name,
+aside .side-inner .profile .email {
+    color: white;
+    font-size: 18px;
+}
+aside .side-inner .profile img {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+}
+
+aside .side-inner .nav-menu ul,
+aside .side-inner .nav-menu ul li {
+    padding: 0;
+    margin: 0px;
+    list-style: none;
+}
+aside .side-inner .nav-menu ul li {
+    border-bottom: 1px solid #3f3f3f;
+}
+aside .side-inner .nav-menu ul li:last-of-type {
+    border-bottom: 0;
+}
+aside .side-inner .nav-menu ul li a {
+    font-size: 18px;
+    display: block;
+    padding: 10px 30px;
+    color: #8b8b8b;
+    position: relative;
+    -webkit-transition: 0.3s padding-left ease;
+    -o-transition: 0.3s padding-left ease;
+    transition: 0.3s padding-left ease;
+}
+aside .side-inner .nav-menu ul li a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0px;
+    background-color: #1da1f2;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.3s opacity ease, 0.3s visibility ease, 0.3s width ease;
+    -o-transition: 0.3s opacity ease, 0.3s visibility ease, 0.3s width ease;
+    transition: 0.3s opacity ease, 0.3s visibility ease, 0.3s width ease;
+}
+aside .side-inner .nav-menu ul li a:active,
+aside .side-inner .nav-menu ul li a:focus,
+aside .side-inner .nav-menu ul li a:hover {
+    outline: none;
+}
+aside .side-inner .nav-menu ul li a:hover {
+    background: #333;
+    color: #eee;
+}
+aside .side-inner .nav-menu ul li a:hover:before {
+    width: 4px;
+    opacity: 1;
+    visibility: visible;
+}
+aside .side-inner .nav-menu ul li.active a {
+    background: #333;
+    color: #eee;
+}
+aside .side-inner .nav-menu ul li.active a:before {
+    opacity: 1;
+    visibility: visible;
+    width: 4px;
+}
+/* Sidebar Style End */
+
+/* header style Start */
+header {
+    border-bottom: 1px solid #3f3f3f;
+}
+.main-nav {
+    justify-content: space-between;
+    align-items: center;
+}
+.main-nav ul li .badge {
+    top: -10px;
+}
+@media screen and (max-width: 992px) {
+    .main-nav {
+        height: 60px;
+    }
+}
+/* header style End */
+
+/* Home Page Style Start */
+.total-balance {
+    font-size: 28px;
+}
+.total-income-value,
+.total-expense-value {
+    font-size: 22px;
+}
+.daily-stat-section .row {
+    justify-content: center;
+}
+.card.daily-stat-card {
+    color: #eee;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #3f3f3f;
+}
+.card.daily-stat-card .card-header,
+.card.daily-stat-card .card-footer {
+    background-color: #333;
+    font-size: 14px;
+}
+.card.daily-stat-card .card-body {
+    background-color: var(--mainColor);
+}
+.card.daily-stat-card .card-body ul li {
+    border-bottom: 1px solid #3f3f3f;
+    transition: background-color 0.3s ease;
+}
+.card.daily-stat-card .card-body ul li:hover {
+    background-color: #3f3f3f;
+}
+.card.daily-stat-card .card-body ul li:last-of-type {
+    border-bottom: 0;
+}
+.daily-stat-card ul li i.fa-times-circle {
+    width: 35px;
+    height: 35px;
+}
+/* Home Page Style End */
+
+/* Categories Page Style Start */
+ul.income-categories li,
+ul.expense-categories li {
+    color: white;
+    font-size: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 1px solid #3f3f3f;
+    transition: background-color 0.3s ease;
+}
+ul.income-categories li:last-of-type,
+ul.expense-categories li:last-of-type {
+    border: 0;
+}
+ul.income-categories li:hover,
+ul.expense-categories li:hover {
+    background-color: #3f3f3f;
+}
+i.cat-icon {
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+}
+i.cat-icon::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.categories-section .income-categories-container,
+.categories-section .expense-categories-container {
+    display: none;
+}
+.categories-section .income-categories-container.show,
+.categories-section .expense-categories-container.show {
+    display: block;
+}
+@media screen and (min-width: 992px) {
+    .categories-section .income-categories-container,
+    .categories-section .expense-categories-container {
+        display: block;
+    }
+}
+/* Categories Page Style End */
+
+/* Statistics Page Style Start */
+.income-expense-yearly-section {
+    padding: 20px 5px;
+}
+.income-expense-yearly-section table {
+    border: #333;
+}
+.income-expense-pie-container {
+    width: 300px;
+    height: 375px;
+}
+@media screen and (max-width: 476px) {
+    .income-expense-pie-container {
+        width: 230px;
+        height: 300px;
+    }
+}
+.income-expense-category-pie-graph-section {
+    padding: 30px 10px;
+}
+.total-income-expenses-graph-container .total-income-amount {
+    width: 75%;
+    background-color: var(--mainColor);
+    border: 3px solid #333;
+}
+.income-category-pie-nav,
+.expense-category-pie-nav {
+    background-color: #3f3f3f;
+}
+.income-category-pie-nav.active,
+.income-nav.active {
+    background-color: var(--plusColor);
+}
+.expense-category-pie-nav.active,
+.expense-nav.active {
+    background-color: var(--minusColor);
+}
+.income-category-pie-nav i,
+.expense-category-pie-nav i {
+    display: none;
+    transition: display 0.3s ease-in;
+}
+.income-category-pie-nav.active i,
+.expense-category-pie-nav.active i {
+    display: inline;
+}
+.income-category-pie-container,
+.expense-category-pie-container {
+    display: none;
+}
+.income-category-pie-container.show,
+.expense-category-pie-container.show {
+    display: block;
+}
+
+.income-expense-category-pie-graph-section .income-category-pie-container ul,
+.income-expense-category-pie-graph-section .expense-category-pie-container ul {
+    width: 85%;
+    padding-left: 0;
+}
+@media screen and (min-width: 468px) {
+    .income-expense-category-pie-graph-section
+        .income-category-pie-container
+        ul,
+    .income-expense-category-pie-graph-section
+        .expense-category-pie-container
+        ul {
+        width: 70%;
+    }
+}
+@media screen and (min-width: 576px) {
+    .income-expense-yearly-section {
+        padding: 20px 15px;
+    }
+    .income-expense-category-pie-graph-section
+        .income-category-pie-container
+        ul,
+    .income-expense-category-pie-graph-section
+        .expense-category-pie-container
+        ul {
+        width: 60%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .income-expense-category-pie-graph-section .income-category-pie-container,
+    .income-expense-category-pie-graph-section .expense-category-pie-container {
+        display: block;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .income-expense-category-pie-graph-section
+        .income-category-pie-container
+        ul,
+    .income-expense-category-pie-graph-section
+        .expense-category-pie-container
+        ul {
+        width: 60%;
+    }
+}
+/* Statistics Page Style End */
+
+/* Profile Section Style Start */
+/* Profile Section Style End */
+
+.add-categories-section .input-group {
+    width: unset;
+    /* align-items: flex-start; */
+}
+.add-categories-section .input-group .input-group-text {
+    margin-top: 5px;
+    /* margin-right: 10px; */
+    display: unset;
+    background-color: var(--mainColor);
+    border: 0;
+    font-size: 22px;
+}
+.icons-container {
+    height: 200px;
+    overflow: scroll;
+    border: 1px solid #3f3f3f;
+}
+
+/* Graph */
+@media screen and (min-width: 576px) {
+    #income-expense-multi-line {
+        height: 400px !important;
+    }
+}
+@media screen and (min-width: 1200px) {
+    #income-expense-multi-line {
+        height: 500px !important;
+    }
+}
+/* Table */
+#income-expense-table,
+#income-expense-table td {
+    border: 1px solid #3f3f3f;
+}
+@media screen and (max-width: 576px) {
+    #income-expense-table {
+        width: 410px;
+        min-width: 100%;
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 410px) {
+    #income-expense-table {
+        width: 330px;
+    }
+}
+@media screen and (max-width: 330px) {
+    #income-expense-table {
+        width: 320px;
+    }
+}
+.user-info-section img {
+    width: 150px;
+}
