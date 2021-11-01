@@ -36,7 +36,7 @@
                 <div class="col-9 form-floating mb-3">
                     <input type="hidden" name="type" value="{{ strtolower($type) }}">
                     <input type="text" class="form-control mb-1" id="name" name="name" placeholder="category name" autocomplete="off">
-                    <small>0-15 letters</small>
+                    <small>{{ __('Maximum 15 letters') }}</small>
                     <label for="name">{{ __('Category Name') }}</label>
                 </div>
             </div>
