@@ -39,6 +39,9 @@
     {{ session('error') }}
 </div>
 @endif
+<a href="" type="button" class="back-to-top rounded d-lg-none">
+    <span class="up-arrow mx-auto"></span>
+</a>
 <div class="row">
     <div class="col-lg-8">
         <!-- Total balance Section Start -->
@@ -193,7 +196,7 @@
                         <div class="income-expense-pie-container position-relative mx-auto ms-md-auto" id="pie-small">
                             <canvas id="income-category-pie"></canvas>
                         </div>
-                        <div class="mt-4">
+                        <div class="my-4 pb-3">
                             @if ($total['income'] > 0)
                             <p class="text-center mx-auto">{{ __('Total Income') }}:
                                 <x-money-format num="{{ $total['income'] }}" />
@@ -221,7 +224,7 @@
                         <div class="income-expense-pie-container position-relative mx-auto ms-md-auto" id="pie-small">
                             <canvas id="expense-category-pie"></canvas>
                         </div>
-                        <div class="mt-4">
+                        <div class="my-4 pb-3">
                             @if ($total['expense'] > 0)
                             <p class="text-center mx-auto">{{ __('Total Expense') }}:
                                 <x-money-format num="{{ $total['expense'] }}" />
