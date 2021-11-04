@@ -39,6 +39,9 @@
     {{ session('error') }}
 </div>
 @endif
+<a href="" type="button" class="back-to-top rounded d-lg-none">
+    <span class="up-arrow mx-auto"></span>
+</a>
 <div class="row">
     <div class="col-lg-8">
         <!-- Total balance Section Start -->
