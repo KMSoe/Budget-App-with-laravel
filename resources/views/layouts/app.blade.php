@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} &nbsp;|&nbsp; {{ $title }}</title>
+    <title>{{ config('app.name', 'Laravel') }} &nbsp;|&nbsp; {{ $title }} @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -99,7 +99,7 @@
         </aside>
         <!-- Sidebar End -->
         @endauth
-        <div class="container-fluid">
+        <div class="container-fluid h-v100">
             <div class="row g-0">
                 @auth
                 <div class="col-lg-3 d-none d-lg-block">
@@ -115,9 +115,12 @@
                     <div class="py-4">
                         @yield('content')
                     </div>
+                </main>
             </div>
         </div>
-
+        <footer class="text-white text-center py-3">
+             Copyright &copy; Kaung Myat Soe, 2021.
+        </footer>
     </div>
     
 

@@ -408,6 +408,3 @@ function showErrors(errors) {
 function showLoaderIcon(element) {
     element.classList.remove('d-none');
 }
-
-
-// // return "<?= htmlspecialchars($formatted_number) ?> {{ __(auth()->user()->setting->budget_unit) }}";
