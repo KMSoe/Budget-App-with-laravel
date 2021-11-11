@@ -33,13 +33,13 @@ class DatabaseSeeder extends Seeder
             "profile" => "avatar.svg",
         ]);
 
-        factory(User::class)->create([
+        User::create([
             "name" => "Kaung Myat",
             "email" => "budgetappteam@gmail.com",
             "profile" => "avatar.svg",
         ]);
 
-        factory(User::class)->create([
+        User::create([
             "name" => "Kaung Myat",
             "email" => "minkhant.galaxy@gmail.com",
             "profile" => "avatar.svg",
