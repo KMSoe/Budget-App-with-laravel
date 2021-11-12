@@ -19,7 +19,7 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()) {
+        if (auth()->user()->id) {
             $setting = Setting::where('user_id', auth()->user()->id)->get();
             App::setLocale($setting[0]->language);
         }
