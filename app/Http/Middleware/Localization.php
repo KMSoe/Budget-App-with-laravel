@@ -20,8 +20,8 @@ class Localization
     public function handle($request, Closure $next)
     {
         if (auth()->user()) {
-            App::setLocale(Auth::user()->setting->language);
-            // App::setLocale(User::find(auth()->user()->id)->setting->language);
+            $setting = Setting::where('user_id', auth()->user()->id)->firstOrFail();
+            App::setLocale($setting->language);
         }
         return $next($request);
     }
