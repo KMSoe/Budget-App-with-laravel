@@ -6,6 +6,7 @@ use App\Setting;
 use App\User;
 use Closure;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class Localization
 {
@@ -19,7 +20,7 @@ class Localization
     public function handle($request, Closure $next)
     {
         if (auth()->user()) {
-            // App::setLocale(auth()->user()->setting->language);
+            App::setLocale(Auth::user()->setting->language);
             // App::setLocale(User::find(auth()->user()->id)->setting->language);
         }
         return $next($request);
