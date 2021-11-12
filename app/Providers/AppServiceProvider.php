@@ -62,12 +62,12 @@ class AppServiceProvider extends ServiceProvider
         view()->share('title', '');
 
         view()->composer('partials.*', function ($view) {
-            $view->with('current_locale', User::find(auth()->user()->id)->setting->language);
+            $view->with('current_locale', 'mm');
             $view->with('locales', config('app.available_locales'));
-            $view->with('current_unit', User::find(auth()->user()->id)->setting->budget_unit);
+            $view->with('current_unit', 'ks');
             $view->with('units', config('app.available_units'));
-            $view->with('locale', array_search(User::find(auth()->user()->id)->setting->language, config('app.available_locales')));
-            $view->with('unit', array_search(User::find(auth()->user()->id)->setting->budget_unit, config('app.available_units')));
+            $view->with('locale', array_search('mm', config('app.available_locales')));
+            $view->with('unit', array_search('ks', config('app.available_units')));
         });
 
         // Blade::component('alert', Breadcrumb::class);

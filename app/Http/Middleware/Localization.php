@@ -20,7 +20,7 @@ class Localization
     {
         if (auth()->user()) {
             // App::setLocale(auth()->user()->setting->language);
-            App::setLocale(User::find(auth()->user()->id)->setting->language);
+            // App::setLocale(User::find(auth()->user()->id)->setting->language);
         }
         return $next($request);
     }
