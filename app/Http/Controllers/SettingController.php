@@ -34,13 +34,13 @@ class SettingController extends Controller
             return Response::json([
                 "success" => false,
                 "errors" => ['Error on Updading Language'],
-            ]);
+            ], 500);
         }
 
         return Response::json([
             "success" => true,
             "language" => $user->setting->language,
-        ]);
+        ], 200);
     }
 
     public function updateUnit(){
@@ -52,7 +52,7 @@ class SettingController extends Controller
             return Response::json([
                 "success" => false,
                 'errors' => $validator->getMessageBag()->toArray(),
-            ]);
+            ], 200);
         }
 
         $user = auth()->user();
@@ -63,12 +63,12 @@ class SettingController extends Controller
             return Response::json([
                 "success" => false,
                 "errors" => ['Error on Updading Unit'],
-            ]);
+            ], 500);
         }
 
         return Response::json([
             "success" => true,
             "unit" => $user->setting->budget_unit,
-        ]);
+        ], 200);
     }
 }

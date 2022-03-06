@@ -24,8 +24,7 @@ class MoneyFormat extends Component
         }
 
         $this->num = $num;
-        // $this->unit = auth()->user()->setting->budget_unit;
-        $this->unit = 'ks';
+        $this->unit = auth()->user()->setting->budget_unit;
     }
 
     /**

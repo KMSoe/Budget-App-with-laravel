@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Icon;
 use App\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Cast\Array_;
 use stdClass;
 
@@ -21,13 +24,12 @@ class CategoryController extends Controller
         $admin__income_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", 1)->where('type', 'Income')->select('categories.*', 'icons.color', 'icons.class')->get();
         $admin__expense_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", 1)->where('type', 'Expense')->select('categories.*', 'icons.color', 'icons.class')->get();
 
-        $user_income_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", auth()->user()->id)->where('type', 'Expense')->select('categories.*', 'icons.color', 'icons.class')->get();
-        $user_expense_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", auth()->user()->id)->where('type', 'Expense')->select('categories.*', 'icons.color', 'icons.class')->get();
-
         if (auth()->user()->role->value === 2) {
             $income_categories = $admin__income_categories;
             $expense_categories = $admin__expense_categories;
         } else {
+            $user_income_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", auth()->user()->id)->where('type', 'Expense')->select('categories.*', 'icons.color', 'icons.class')->get();
+            $user_expense_categories = Category::join('icons', 'categories.icon_id', '=', 'icons.id')->where("categories.user_id", auth()->user()->id)->where('type', 'Expense')->select('categories.*', 'icons.color', 'icons.class')->get();
             $income_categories = [...$admin__income_categories, ...$user_income_categories];
             $expense_categories = [...$admin__expense_categories, ...$user_expense_categories];
         }
@@ -38,10 +40,10 @@ class CategoryController extends Controller
             "expense_categories" => $expense_categories,
         ]);
     }
-    public function create()
+    public function create(Request $request)
     {
-        if (isset($_GET["type"])) {
-            if ($_GET['type'] === 'income' || $_GET['type'] === 'expense') {
+        if (isset($request->type)) {
+            if ($request->type === 'income' || $request->type === 'expense') {
                 $icons = Icon::whereNotIn("id", Category::where("user_id", 1)->orWhere("user_id", auth()->user()->id)->select('icon_id'))->get();
 
                 $first_icon = new stdClass();
@@ -50,8 +52,8 @@ class CategoryController extends Controller
                 $first_icon->color = "#85bb65";
 
                 return view("categories.add", [
-                    "title" => 'Add '. ucwords($_GET['type']) . 'Category',
-                    "type" => ucwords($_GET['type']),
+                    "title" => 'Add ' . ucwords($request->type) . 'Category',
+                    "type" => ucwords($request->type),
                     "icons" => $icons,
                     "first_icon" => $icons[0] ?? $first_icon,
                 ]);
@@ -60,9 +62,9 @@ class CategoryController extends Controller
 
         return abort(404);
     }
-    public function store()
+    public function store(Request $request)
     {
-        $validator = validator(request()->all(), [
+        $validator = Validator::make($request->all(), [
             "icon_id" => 'required',
             "type" => 'required',
             "name" => 'required',
@@ -72,14 +74,18 @@ class CategoryController extends Controller
             return back()->withErrors($validator);
         }
 
-        $category = new Category();
-        $category->name = request()->name;
-        $category->type = ucfirst(request()->type);
-        $category->icon_id = request()->icon_id;
-        $category->user_id = auth()->user()->id;
-        $category->save();
+        try {
+            $category = new Category();
+            $category->name = $request->name;
+            $category->type = ucfirst($request->type);
+            $category->icon_id = $request->icon_id;
+            $category->user_id = auth()->user()->id;
+            $category->save();
 
-        return redirect()->route('categories.index')->with('info', 'Budget added');
+            return redirect()->route('categories.index')->with('info', 'Budget added');
+        } catch (QueryException $th) {
+            return back()->with('error', 'Error in Adding Category');
+        }
     }
 
     public function destroy()
@@ -91,13 +97,20 @@ class CategoryController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-        $category = Category::find(request()->category_id);
-        $response = Gate::inspect('delete', $category);
 
-        if ($response->allowed()) {
-            $category->delete();
-            return back()->with('info', "Deleted");
+        try {
+            $category = Category::find(request()->category_id);
+            $response = Gate::inspect('delete', $category);
+
+            if ($response->allowed()) {
+                $category->delete();
+                return back()->with('info', "Deleted");
+            }
+            return back()->with('error', $response->message());
+        } catch (ModelNotFoundException $e) {
+            return back()->with('error', 'Budget Not Found');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Error in deleting Category');
         }
-        return back()->with('error', $response->message());
     }
 }

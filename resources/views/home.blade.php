@@ -34,6 +34,11 @@
     {{ session('info') }}
 </div>
 @endif
+@if(session('info-deleted'))
+<div class="alert alert-danger">
+    {{ session('info-deleted') }}
+</div>
+@endif
 @if(session('error'))
 <div class="alert alert-warning">
     {{ session('error') }}
@@ -135,7 +140,7 @@
                             <ul class="mb-0 px-0">
                                 @foreach ($card->items as $item)
                                 <li class="d-flex py-2 px-3">
-                                    <i class="cat-icon {{ $item->icon->class }} me-3 my-auto" style="background-color: <?= htmlspecialchars($item->icon->color) ?>;"></i>
+                                    <i class="cat-icon {{ $item->class }} me-3 my-auto" style="background-color: <?= htmlspecialchars($item->color) ?>;"></i>
                                     <span class="flex-fill my-auto">{{ __($item->name) }} <br> <span class="text-muted">{{ __($item->remark) }}</span></span>
                                     <span class="{{ $item->amount > 0 ? 'plus' : 'minus' }} font-weight-bold my-auto">{{ $item->amount > 0 ? '+' : '' }}
                                         <x-money-format num="{{ $item->amount }}" />

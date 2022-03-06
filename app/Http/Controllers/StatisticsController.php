@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Budget;
 use App\Category;
 use App\Icon;
+use Carbon\Carbon;
 use stdClass;
 
 class StatisticsController extends Controller
@@ -15,20 +16,22 @@ class StatisticsController extends Controller
     {
         $this->middleware('auth');
     }
-    private $months = ["Jan", "Feb", "Mar", "April", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    public function index()
+    public function index(Request $request)
     {
-        if (isset(request()->year)) {
-            $year = request()->year;
-            if ($year < date("Y")) {
+        $time = Carbon::now();
+        $year = $month = null;
+
+        if (isset($request->year)) {
+            $year = $request->year;
+            if ($year < $time->year || $year > $time->year) {
                 $month = 12;
             } else {
-                $month = date("m");
+                $month = $time->month;
             }
         } else {
-            $year = date("Y");
-            $month = date("m");
+            $year = $time->year;
+            $month = $time->month;
         }
 
         $yearly_result_table = Budget::getBudgetTableByYear($year, $month);
@@ -36,7 +39,6 @@ class StatisticsController extends Controller
         [$incomeDetails, $income_category_names, $income_category_amount_percentages, $income_category_colors] = Budget::getBudgetDetails("Income", $month, $year, $yearly_result_table[0]->income);
 
         [$expenseDetails, $expense_category_names, $expense_category_amount_percentages, $expense_category_colors] = Budget::getBudgetDetails("Expense", $month, $year, $yearly_result_table[0]->expense);
-
 
         return view('statistics', [
             "title" => 'Statistics',

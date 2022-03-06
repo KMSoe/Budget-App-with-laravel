@@ -42,30 +42,5 @@
             <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt me-2"></i>{{ __('Sign out') }}</a></li>
         </ul>
-
-        <ul class="mt-1 pt-2 border-top border-secondary">
-            <li>
-                <a href="" class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#share">
-                    <span class="d-flex">
-                        <i class="fas fa-share-alt me-2 my-auto"></i>
-                        <span class="my-auto">{{ __('Share Budget') }}</span>
-                    </span>
-                    <span class="d-flex justify-content-end">
-                        <i style="font-size: 22px;" class="fas fa-angle-right ms-2 my-auto"></i>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="" class="d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#rate">
-                    <span class="d-flex">
-                        <i class="fas fa-comments me-2 my-auto"></i>
-                        <span class="my-auto">{{ __('Help & feedback') }}</span>
-                    </span>
-                    <span class="d-flex justify-content-end">
-                        <i style="font-size: 22px;" class="fas fa-angle-right ms-2 my-auto"></i>
-                    </span>
-                </a>
-            </li>
-        </ul>
     </div>
 </div>

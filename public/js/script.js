@@ -206,11 +206,11 @@ if (backToTopBtn) {
     });
 }
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'http://127.0.0.1:8000';
 const app = document.getElementById("app");
 function changeDate() {
     const requestMonth = $("#month").val().split("/");
-    location.replace(`${baseUrl}/home?time=${requestMonth[0]}+${requestMonth[1]}`);
+    location.replace(`${baseUrl}/home?month=${requestMonth[0]}&year=${requestMonth[1]}`);
 }
 
 function changeYear() {
@@ -222,7 +222,7 @@ function changeYear() {
 $(function () {
     $('#month').datepicker(
         {
-            dateFormat: "M/yy",
+            dateFormat: "m/yy",
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
@@ -354,21 +354,20 @@ unitRadioBtns.forEach(radio => {
 
 function updateSettingRequest(setting_name, reqbody) {
     fetch(`${baseUrl}/setting/edit/${setting_name}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'content-type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify(reqbody),
-    }).then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                showErrors(data.errors);
-                hideAlert();
-            }
-        })
+    }).then(res => {
+        if (res.status === 200) {
+            location.reload();
+        } else {
+            showErrors(data.errors);
+            hideAlert();
+        }
+    })
         .catch(err => showError(err))
 }
 function showAlert(type, message) {

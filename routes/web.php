@@ -56,6 +56,6 @@ Route::name("icons.")->prefix('icons')->group(function () {
 
 Route::name("setting.")->prefix('setting')->group(function () {
     Route::get('/', 'SettingController@index')->name('index');
-    Route::post('/edit/language', 'SettingController@updateLanguage')->name('update.lanuage');
-    Route::post('/edit/unit', 'SettingController@updateUnit')->name('update.unit');
+    Route::patch('/edit/language', 'SettingController@updateLanguage')->name('update.lanuage');
+    Route::patch('/edit/unit', 'SettingController@updateUnit')->name('update.unit');
 });

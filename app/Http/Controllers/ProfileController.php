@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Budget;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -17,9 +18,11 @@ class ProfileController extends Controller
     }
     public function index()
     {
-        $user_start_year = Budget::where('user_id', auth()->user()->id)->min(DB::raw('YEAR(created_at)')) ?? date("Y");
+        $time = Carbon::now();
 
-        $current_year = date("Y");
+        $user_start_year = Budget::where('user_id', auth()->user()->id)->min(DB::raw('YEAR(created_at)')) ?? $time->year;
+
+        $current_year = $time->year;
 
         $results = [];
 
@@ -34,7 +37,6 @@ class ProfileController extends Controller
     }
     public function upload(Request $request)
     {
-
         $validator = validator(request()->all(), [
             'photo' => 'required | image | mimes:jpeg,bmp,png,jpg',
         ]);
@@ -59,7 +61,6 @@ class ProfileController extends Controller
 
             $path = $request->file('photo')->storeAs('profiles', $imageName, 'public');
 
-            // return $path;
             $affected = DB::table("users")
                 ->where("id", $user->id)
                 ->update(["profile" => $imageName]);
